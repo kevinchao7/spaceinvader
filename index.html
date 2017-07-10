@@ -45,6 +45,8 @@
       // Initalizing instances
       var player = new Player();
       var bullet = [];
+      var spriteSheet = new Image();
+      spriteSheet.src = "assets/spritesheet.png"
 
       // Main canvas function
       var main = function(){
@@ -66,7 +68,11 @@
         });
 
         // Draws objects
+          // Title
+        ctx.drawImage(spriteSheet, 171 , 8, 232, 158, 200, 50, 232, 158);
+          // spaceShip
         player.draw();
+          // projectiles
         bullet.forEach(function(item){
           item.draw();
         });

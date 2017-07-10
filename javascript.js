@@ -1,3 +1,4 @@
+// Player Class
 function Player(){
   // Player Attributes
   this.px = 300;
@@ -10,7 +11,7 @@ function Player(){
   this.sHeight = 22;
   this.image = new Image();
   this.image.src = 'assets/spritesheet.png';
-  this.playerSpeed = 6;
+  this.playerSpeed = 3;
   this.color = "red";
 
   this.update = function(){
@@ -34,15 +35,12 @@ function Player(){
 
   this.draw = function(){
     ctx.drawImage(this.image, this.sx, this.sy, this.sWidth, this.sHeight, this.px, this.py, this.w, this.h);
-    // ctx.beginPath();
-    // ctx.rect(this.px, this.py, this.w, this.h);
-    // ctx.fillStyle = this.color;
-    // ctx.fill();
-    // ctx.closePath();
   }
 
 };
 
+
+// Projectile Class
 function Bullet(px,py,w,isActive){
 
   // Bullet attributes
