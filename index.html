@@ -6,6 +6,8 @@
     <style>
     	* { padding: 0; margin: 0; }
     	canvas { background: #eee; display: block; margin: 0 auto; }
+
+
     </style>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   </head>
@@ -26,6 +28,14 @@
       var moveRight = false;
       var spaceBtn = false;
 
+      // Audio
+      myAudio = new Audio('assets/music.mp3');
+      myAudio.addEventListener('ended', function() {
+        this.currentTime =0;
+        this.play();
+      }, false);
+      myAudio.play();
+
       // Keyboard Controls - uses boolean to smooth our movements
       document.onkeydown = function(evt){
         if (evt.keyCode === 37)
@@ -45,17 +55,28 @@
       // Initalizing instances
       var player = new Player();
       var bullet = [];
+      var shield = [];
+      for (var i = 0; i < 4; i++){
+        shield.push(new Shield(120*(i+1), 340));
+      }
       var spriteSheet = new Image();
-      spriteSheet.src = "assets/spritesheet.png"
+      spriteSheet.src = "assets/spritesheet.png";
+      var background = new Image();
+      background.src = "assets/stars.jpeg";
+
+      // Parallax scrolling variable
+      var parallax = 0;
+
 
       // Main canvas function
       var main = function(){
         // Clears canvas before drawing.
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // Black Canvas background
-        ctx.fillStyle = "black";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        // Parallax background
+        ctx.drawImage(background, 0, 0, 1920, 1080, 0, parallax, canvas.width, canvas.height);
+        ctx.drawImage(background, 0, 0, 1920, 1080, 0, parallax-canvas.height, canvas.width, canvas.height);
+
 
         // Moves player
         player.update();
@@ -67,11 +88,18 @@
             bullet.splice(index,1);
         });
 
+        // Parallax update
+        updateStars();
+
         // Draws objects
           // Title
-        ctx.drawImage(spriteSheet, 171 , 8, 232, 158, 200, 50, 232, 158);
+        // ctx.drawImage(spriteSheet, 171 , 8, 232, 158, 200, 50, 232, 158);
           // spaceShip
         player.draw();
+          // Shield
+        shield.forEach(function(item){
+          item.draw();
+        });
           // projectiles
         bullet.forEach(function(item){
           item.draw();
@@ -82,6 +110,14 @@
       // Runs draw function every x milliseconds, aka FrameRate
       setInterval(main,10);
 
+      var updateStars = function(){
+        if (parallax  < canvas.height){
+          parallax+=2;
+        }
+        else {
+          parallax = 0;
+        }
+      }
 
     </script>
 

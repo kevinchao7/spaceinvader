@@ -47,7 +47,7 @@ function Bullet(px,py,w,isActive){
   this.w = 5;
   this.h = 15;
   this.bx = px + w/2 - this.w/2;
-  this.by = py - this.h;
+  this.by = py - this.h/2;
   this.speed = 6;
   this.color = "red";
   this.active = isActive;
@@ -70,6 +70,38 @@ function Bullet(px,py,w,isActive){
       ctx.fillStyle = this.color;
       ctx.fill();
       ctx.closePath();
+    }
+
+  this.checkCollsion = function(){
+
   }
 
 };
+
+// Shield Class
+function Shield(px,py){
+
+  // Shield Attributes
+  this.w = 48;
+  this.h = 34;
+  this.sx = 314;
+  this.sy = 212;
+  this.sWidth = 48;
+  this.sHeight = 34;
+  this.px = px;
+  this.py = py;
+  this.hp = 5;
+  this.active = true;
+  this.image = new Image();
+  this.image.src = 'assets/spritesheet.png';
+
+  this.update = function(){
+
+  }
+
+  this.draw = function(){
+    ctx.drawImage(this.image, this.sx, this.sy, this.sWidth, this.sHeight, this.px, this.py, this.w, this.h);
+  }
+}
+
+// Alienship class
