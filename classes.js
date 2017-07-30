@@ -42,11 +42,11 @@ function Player(){
 function Bullet(px,py,w,isActive){
 
   // Bullet attributes
-  this.w = 5;
-  this.h = 15;
+  this.w = 2;
+  this.h = 10;
   this.bx = px + w/2 - this.w/2;
   this.by = py - this.h/2;
-  this.speed = 6;
+  this.speed = 4;
   this.color = "red";
   this.active = isActive;
 
@@ -91,6 +91,7 @@ function Bullet(px,py,w,isActive){
         if (that.bx+that.w >= item.px && that.bx <= item.px+item.w && that.by >= item.py && that.by <= item.py+item.h){
           console.log('Alien Collision Detected...');
           that.active = false;
+          item.active = false;
           return false;
         }
       });
@@ -202,18 +203,20 @@ function Enemy(px,py,type){
   }
 
   this.update = function(){
-    this.swapImage(); // Swaps image for motion animation
-    this.Move(); // Moves ships
+    if(this.active){
+      this.swapImage(); // Swaps image for motion animation
+      this.Move(); // Moves ships
+    }
   }
 
 
 
   this.draw = function(){
-    ctx.beginPath();
-    ctx.rect(this.px, this.py, this.w, this.h);
-    ctx.fillStyle = 'red';
-    ctx.fill();
-    ctx.closePath();
-    // ctx.drawImage(spriteSheet, this.sx, this.sy, this.sWidth, this.sHeight, this.px, this.py, this.w, this.h);
+    // ctx.beginPath();
+    // ctx.rect(this.px, this.py, this.w, this.h);
+    // ctx.fillStyle = 'red';
+    // ctx.fill();
+    // ctx.closePath();
+    ctx.drawImage(spriteSheet, this.sx, this.sy, this.sWidth, this.sHeight, this.px, this.py, this.w, this.h);
   }
 }

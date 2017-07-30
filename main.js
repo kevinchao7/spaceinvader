@@ -86,8 +86,14 @@ var main = function(){
   // Updates
   updateStars();
   alienArr.forEach(function(alienRow){
-    alienRow.forEach(function(alien){
-      alien.update();
+    alienRow.forEach(function(alien,index){
+      if (alien.active){
+        alien.update();
+      }
+      else{
+        alienRow.splice(index,1);
+        console.log('Spliced Alien');
+      }
     });
   });
 
